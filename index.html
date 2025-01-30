@@ -141,6 +141,36 @@
             </ul>
         </aside>
     </main>
+    <script>
+        // Новые функции
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+
+        function subscribe() {
+            const email = document.getElementById('email-input').value;
+            if (email.includes('@')) {
+                alert('Спасибо за подписку!');
+            } else {
+                alert('Пожалуйста, введите корректный email');
+            }
+        }
+
+        function answerQuiz(answer) {
+            alert(`Спасибо за ответ: ${answer}`);
+        }
+
+        // Показ модального окна через 5 секунд
+        setTimeout(() => {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal').style.display = 'block';
+        }, 5000);
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
 
     <footer>
         <p>&copy; 2025 сайт хуечки. Все права защищены.</p>
