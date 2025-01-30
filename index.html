@@ -224,72 +224,27 @@
     }
 </style>
 
-<script>
-// Функция для загрузки комментариев из LocalStorage
-function loadComments() {
-    const comments = JSON.parse(localStorage.getItem('comments')) || [];
-    const commentsList = document.getElementById('comments-list');
-    commentsList.innerHTML = '';
-
-    comments.forEach(comment => {
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-        commentElement.innerHTML = `
-            <div class="username">${comment.username}</div>
-            <div class="text">${comment.text}</div>
-            <div class="timestamp">${new Date(comment.timestamp).toLocaleString()}</div>
-        `;
-        commentsList.appendChild(commentElement);
-    });
-}
-
-// Функция для добавления нового комментария
-function addComment() {
-    const username = document.getElementById('username').value.trim();
-    const text = document.getElementById('comment-text').value.trim();
-
-    if (!username || !text) {
-        alert('Пожалуйста, заполните все поля!');
-        return;
-    }
-
-    const comment = {
-        username,
-        text,
-        timestamp: new Date().getTime()
-    };
-
-    // Сохраняем комментарий в LocalStorage
-    const comments = JSON.parse(localStorage.getItem('comments')) || [];
-    comments.push(comment);
-    localStorage.setItem('comments', JSON.stringify(comments));
-
-    // Очищаем поля формы
-    document.getElementById('username').value = '';
-    document.getElementById('comment-text').value = '';
-
-    // Обновляем список комментариев
-    loadComments();
-}
-
-// Загружаем комментарии при загрузке страницы
-window.onload = loadComments;
-</script>
-        <section class="main-content">
-    <article class="card">
-        <div class="quiz-game">
-            <h2>Викторина: Случайные вопросы!</h2>
-            <div id="quiz-container">
-                <div id="question"></div>
-                <div id="answers"></div>
-                <div class="timer">Осталось времени: <span id="time">60</span> сек</div>
-                <p>Счет: <span id="score">0</span></p>
-                <button id="start-button" onclick="startQuiz()">Начать игру</button>
-            </div>
-        </div>
-    </article>
-</section>
-
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форум</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  < <h1>Форум с комментариями</h1>
+  <div id="comments-section">
+    <ul id="comments-list"></ul>
+  </div>
+  <form id="comment-form">
+    <input type="text" id="nickname" placeholder="Ваш никнейм" required>
+    <textarea id="message" placeholder="Ваш комментарий" required></textarea>
+    <button type="submit">Отправить</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
 <script>
 // Генератор случайных вопросов
 function generateQuestion() {
