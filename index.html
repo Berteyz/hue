@@ -139,6 +139,144 @@
     <main>
         <section class="main-content">
     <article class="card">
+        <div class="forum">
+            <h2>Форум</h2>
+            <div id="comment-form">
+                <input type="text" id="username" placeholder="Ваш никнейм" required>
+                <textarea id="comment-text" placeholder="Ваш комментарий" required></textarea>
+                <button onclick="addComment()">Отправить</button>
+            </div>
+            <div id="comments-list"></div>
+        </div>
+    </article>
+</section>
+
+<style>
+    /* Стили для форума */
+    .forum {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    #comment-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    #comment-form input,
+    #comment-form textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    #comment-form textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    #comment-form button {
+        background: #008CBA;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    #comment-form button:hover {
+        background: #0077a3;
+    }
+
+    #comments-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .comment {
+        background: #f9f9f9;
+        padding: 1rem;
+        border-radius: 5px;
+        border: 1px solid #eee;
+    }
+
+    .comment .username {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .comment .text {
+        margin-top: 0.5rem;
+        color: #555;
+    }
+
+    .comment .timestamp {
+        font-size: 0.8rem;
+        color: #888;
+        margin-top: 0.5rem;
+    }
+</style>
+
+<script>
+// Функция для загрузки комментариев из LocalStorage
+function loadComments() {
+    const comments = JSON.parse(localStorage.getItem('comments')) || [];
+    const commentsList = document.getElementById('comments-list');
+    commentsList.innerHTML = '';
+
+    comments.forEach(comment => {
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.innerHTML = `
+            <div class="username">${comment.username}</div>
+            <div class="text">${comment.text}</div>
+            <div class="timestamp">${new Date(comment.timestamp).toLocaleString()}</div>
+        `;
+        commentsList.appendChild(commentElement);
+    });
+}
+
+// Функция для добавления нового комментария
+function addComment() {
+    const username = document.getElementById('username').value.trim();
+    const text = document.getElementById('comment-text').value.trim();
+
+    if (!username || !text) {
+        alert('Пожалуйста, заполните все поля!');
+        return;
+    }
+
+    const comment = {
+        username,
+        text,
+        timestamp: new Date().getTime()
+    };
+
+    // Сохраняем комментарий в LocalStorage
+    const comments = JSON.parse(localStorage.getItem('comments')) || [];
+    comments.push(comment);
+    localStorage.setItem('comments', JSON.stringify(comments));
+
+    // Очищаем поля формы
+    document.getElementById('username').value = '';
+    document.getElementById('comment-text').value = '';
+
+    // Обновляем список комментариев
+    loadComments();
+}
+
+// Загружаем комментарии при загрузке страницы
+window.onload = loadComments;
+</script>
+        <section class="main-content">
+    <article class="card">
         <div class="quiz-game">
             <h2>Викторина: Случайные вопросы!</h2>
             <div id="quiz-container">
