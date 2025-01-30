@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хуечки Хуечки</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Шапка */
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* Навигация */
+        nav {
+            background: #444;
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #ddd;
+        }
+
+        /* Основной контент */
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        /* Основная секция */
+        .main-content {
+            flex: 3;
+            min-width: 300px;
+        }
+
+        /* Сайдбар */
+        aside {
+            flex: 1;
+            background: #f4f4f4;
+            padding: 1rem;
+            min-width: 250px;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+
+        /* Карточки */
+        .card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            main {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Мой сайт</h1>
+        <p>Добро пожаловать на Хуечки Хуечки</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">О нас</a></li>
+            <li><a href="#">Услуги</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="main-content">
+            <article class="card">
+                <h2>Заголовок статьи</h2>
+                <p>Текст статьи...</p>
+                <button>Подробнее</button>
+            </article>
+
+            <article class="card">
+                <h2>Еще одна статья</h2>
+                <p>Еще какой-то текст...</p>
+                <button>Подробнее</button>
+            </article>
+        </section>
+
+        <aside>
+            <h3>Сайдбар</h3>
+            <p>Дополнительная информация</p>
+            <ul>
+                <li>Пункт 1</li>
+                <li>Пункт 2</li>
+                <li>Пункт 3</li>
+            </ul>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 сайт хуечки. Все права защищены.</p>
+    </footer>
+</body>
+</html>
