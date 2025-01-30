@@ -140,6 +140,205 @@
         <section class="main-content">
     <article class="card">
         <div class="quiz-game">
+            <h2>Викторина: Случайные вопросы!</h2>
+            <div id="quiz-container">
+                <div id="question"></div>
+                <div id="answers"></div>
+                <div class="timer">Осталось времени: <span id="time">60</span> сек</div>
+                <p>Счет: <span id="score">0</span></p>
+                <button id="start-button" onclick="startQuiz()">Начать игру</button>
+            </div>
+        </div>
+    </article>
+</section>
+
+<script>
+// Генератор случайных вопросов
+function generateQuestion() {
+    const types = ['math', 'number-fact', 'capital'];
+    const type = types[Math.floor(Math.random() * types.length)];
+
+    switch (type) {
+        case 'math':
+            return generateMathQuestion();
+        case 'number-fact':
+            return generateNumberFactQuestion();
+        case 'capital':
+            return generateCapitalQuestion();
+        default:
+            return generateMathQuestion();
+    }
+}
+
+// Генератор математических вопросов
+function generateMathQuestion() {
+    const a = Math.floor(Math.random() * 20) + 1;
+    const b = Math.floor(Math.random() * 20) + 1;
+    const operators = ['+', '-', '*'];
+    const operator = operators[Math.floor(Math.random() * operators.length)];
+
+    let question, correctAnswer;
+    switch (operator) {
+        case '+':
+            question = `${a} + ${b} = ?`;
+            correctAnswer = a + b;
+            break;
+        case '-':
+            question = `${a} - ${b} = ?`;
+            correctAnswer = a - b;
+            break;
+        case '*':
+            question = `${a} * ${b} = ?`;
+            correctAnswer = a * b;
+            break;
+    }
+
+    const answers = [
+        correctAnswer,
+        correctAnswer + Math.floor(Math.random() * 5) + 1,
+        correctAnswer - Math.floor(Math.random() * 5) + 1,
+        correctAnswer + Math.floor(Math.random() * 10) + 5
+    ].sort(() => Math.random() - 0.5);
+
+    return {
+        question,
+        answers,
+        correct: answers.indexOf(correctAnswer)
+    };
+}
+
+// Генератор вопросов о числах
+function generateNumberFactQuestion() {
+    const number = Math.floor(Math.random() * 100) + 1;
+    const facts = [
+        `Число ${number} является ${number % 2 === 0 ? 'четным' : 'нечетным'}.`,
+        `Число ${number} ${isPrime(number) ? 'является' : 'не является'} простым числом.`,
+        `Квадратный корень из ${number} равен ${Math.sqrt(number).toFixed(2)}.`
+    ];
+    const question = facts[Math.floor(Math.random() * facts.length)];
+    const correctAnswer = "Верно";
+    const wrongAnswer = "Неверно";
+
+    const answers = [correctAnswer, wrongAnswer];
+    if (question.includes("простое число")) {
+        return {
+            question,
+            answers,
+            correct: isPrime(number) ? 0 : 1
+        };
+    } else if (question.includes("четным")) {
+        return {
+            question,
+            answers,
+            correct: number % 2 === 0 ? 0 : 1
+        };
+    } else {
+        return {
+            question,
+            answers: ["Верно", "Неверно"],
+            correct: 0
+        };
+    }
+}
+
+// Проверка на простое число
+function isPrime(num) {
+    for (let i = 2; i < num; i++) {
+        if (num % i === 0) return false;
+    }
+    return num > 1;
+}
+
+// Генератор вопросов о столицах
+function generateCapitalQuestion() {
+    const countries = [
+        { country: "Франция", capital: "Париж" },
+        { country: "Германия", capital: "Берлин" },
+        { country: "Италия", capital: "Рим" },
+        { country: "Япония", capital: "Токио" }
+    ];
+    const selected = countries[Math.floor(Math.random() * countries.length)];
+    const question = `Столица страны ${selected.country}?`;
+    const correctAnswer = selected.capital;
+
+    const answers = [
+        correctAnswer,
+        countries[Math.floor(Math.random() * countries.length)].capital,
+        countries[Math.floor(Math.random() * countries.length)].capital,
+        countries[Math.floor(Math.random() * countries.length)].capital
+    ].sort(() => Math.random() - 0.5);
+
+    return {
+        question,
+        answers,
+        correct: answers.indexOf(correctAnswer)
+    };
+}
+
+// Логика викторины
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 60;
+let timer;
+
+function startQuiz() {
+    document.getElementById('start-button').style.display = 'none';
+    showQuestion();
+    startTimer();
+}
+
+function showQuestion() {
+    const questionData = generateQuestion();
+    document.getElementById('question').innerHTML = questionData.question;
+    
+    const answersContainer = document.getElementById('answers');
+    answersContainer.innerHTML = '';
+    
+    questionData.answers.forEach((answer, index) => {
+        const button = document.createElement('button');
+        button.classList.add('game-button');
+        button.textContent = answer;
+        button.onclick = () => checkAnswer(index, questionData.correct);
+        answersContainer.appendChild(button);
+    });
+}
+
+function checkAnswer(selectedIndex, correctIndex) {
+    if (selectedIndex === correctIndex) {
+        score += 10;
+        alert('Правильно! +10 очков');
+    } else {
+        alert('Неправильно!');
+    }
+    
+    document.getElementById('score').textContent = score;
+    currentQuestion++;
+    showQuestion();
+}
+
+function startTimer() {
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('time').textContent = timeLeft;
+        
+        if (timeLeft <= 0) {
+            endQuiz();
+        }
+    }, 1000);
+}
+
+function endQuiz() {
+    clearInterval(timer);
+    document.getElementById('quiz-container').innerHTML = `
+        <h2>Викторина завершена!</h2>
+        <p>Ваш итоговый счет: ${score} очков</p>
+        <button onclick="location.reload()">Играть снова</button>
+    `;
+}
+</script>
+        <section class="main-content">
+    <article class="card">
+        <div class="quiz-game">
             <h2>Викторина: Проверь свои знания!</h2>
             <div id="quiz-container">
                 <div id="question"></div>
