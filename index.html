@@ -138,6 +138,117 @@
 
     <main>
         <section class="main-content">
+    <article class="card">
+        <div class="quiz-game">
+            <h2>Викторина: Проверь свои знания!</h2>
+            <div id="quiz-container">
+                <div id="question"></div>
+                <div id="answers"></div>
+                <div class="timer">Осталось времени: <span id="time">60</span> сек</div>
+                <p>Счет: <span id="score">0</span></p>
+                <button id="start-button" onclick="startQuiz()">Начать игру</button>
+            </div>
+        </div>
+    </article>
+</section>
+
+<script>
+// Вопросы для викторины
+const questions = [
+    {
+        question: "Какой язык программирования самый популярный в 2023 году?",
+        answers: ["Python", "JavaScript", "Java", "C++"],
+        correct: 0
+    },
+    {
+        question: "Сколько планет в Солнечной системе?",
+        answers: ["7", "8", "9", "10"],
+        correct: 1
+    },
+    {
+        question: "Кто написал роман '1984'?",
+        answers: ["Джордж Оруэлл", "Рэй Брэдбери", "Олдос Хаксли", "Фрэнк Кафка"],
+        correct: 0
+    },
+    {
+        question: "Какой элемент обозначается символом 'O'?",
+        answers: ["Золото", "Кислород", "Олово", "Осмий"],
+        correct: 1
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 60;
+let timer;
+
+// Функция для старта викторины
+function startQuiz() {
+    document.getElementById('start-button').style.display = 'none';
+    showQuestion();
+    startTimer();
+}
+
+// Показ вопроса
+function showQuestion() {
+    const questionData = questions[currentQuestion];
+    document.getElementById('question').innerHTML = questionData.question;
+    
+    const answersContainer = document.getElementById('answers');
+    answersContainer.innerHTML = '';
+    
+    questionData.answers.forEach((answer, index) => {
+        const button = document.createElement('button');
+        button.classList.add('game-button');
+        button.textContent = answer;
+        button.onclick = () => checkAnswer(index);
+        answersContainer.appendChild(button);
+    });
+}
+
+// Проверка ответа
+function checkAnswer(selectedIndex) {
+    const questionData = questions[currentQuestion];
+    if (selectedIndex === questionData.correct) {
+        score += 10;
+        alert('Правильно! +10 очков');
+    } else {
+        alert(`Неправильно! Правильный ответ: ${questionData.answers[questionData.correct]}`);
+    }
+    
+    document.getElementById('score').textContent = score;
+    currentQuestion++;
+    
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        endQuiz();
+    }
+}
+
+// Таймер
+function startTimer() {
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('time').textContent = timeLeft;
+        
+        if (timeLeft <= 0) {
+            endQuiz();
+        }
+    }, 1000);
+}
+
+// Завершение викторины
+function endQuiz() {
+    clearInterval(timer);
+    document.getElementById('quiz-container').innerHTML = `
+        <h2>Викторина завершена!</h2>
+        <p>Ваш итоговый счет: ${score} очков</p>
+        <button onclick="location.reload()">Играть снова</button>
+    `;
+}
+</script>
+        <section class="main-content">
             <article class="card">
                 <h2>Наш прогресс</h2>
                 <div class="progress-bar">
