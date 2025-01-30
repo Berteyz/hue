@@ -137,20 +137,29 @@
     <nav>...</nav> <!-- Навигация без изменений -->
 
     <main>
-        <section class="main-content">
-    <article class="card">
-        <div class="forum">
-            <h2>Форум</h2>
-            <div id="comment-form">
-                <input type="text" id="username" placeholder="Ваш никнейм" required>
-                <textarea id="comment-text" placeholder="Ваш комментарий" required></textarea>
-                <button onclick="addComment()">Отправить</button>
-            </div>
-            <div id="comments-list"></div>
-        </div>
-    </article>
-</section>
-
+        
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форум</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  < <h1>Форум с комментариями</h1>
+  <div id="comments-section">
+    <ul id="comments-list"></ul>
+  </div>
+  <form id="comment-form">
+    <input type="text" id="nickname" placeholder="Ваш никнейм" required>
+    <textarea id="message" placeholder="Ваш комментарий" required></textarea>
+    <button type="submit">Отправить</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+        
 <style>
    
 <script>
