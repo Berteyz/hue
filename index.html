@@ -5,97 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Хуечки Хуечки</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Добавленные стили */
+        .header-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-top: 1rem;
+            border-radius: 10px;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-
-        /* Шапка */
-        header {
-            background-color: #333;
+        .complaint-button {
+            background-color: #ff4444;
             color: white;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        /* Навигация */
-        nav {
-            background: #444;
-            padding: 1rem;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-        }
-
-        nav a:hover {
-            color: #ddd;
-        }
-
-        /* Основной контент */
-        main {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 2rem;
-            gap: 2rem;
-        }
-
-        /* Основная секция */
-        .main-content {
-            flex: 3;
-            min-width: 300px;
-        }
-
-        /* Сайдбар */
-        aside {
-            flex: 1;
-            background: #f4f4f4;
-            padding: 1rem;
-            min-width: 250px;
-        }
-
-        /* Подвал */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: auto;
-        }
-
-        /* Карточки */
-        .card {
-            border: 1px solid #ddd;
-            padding: 1rem;
-            margin-bottom: 1rem;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            margin: 1rem 0;
         }
 
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
+        .complaint-button:hover {
+            background-color: #cc0000;
+        }
 
-            main {
-                flex-direction: column;
-            }
+        .article-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            margin: 1rem 0;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -103,6 +41,9 @@
     <header>
         <h1>Хуечки Хуечки</h1>
         <p>Добро пожаловать на Хуечки Хуечки</p>
+        <img src="https://picsum.photos/1200/200" 
+             alt="Логотип сайта" 
+             class="header-image">
     </header>
 
     <nav>
@@ -111,37 +52,56 @@
             <li><a href="#">О нас</a></li>
             <li><a href="#">Услуги</a></li>
             <li><a href="#">Контакты</a></li>
+            <!-- Кнопка жалобы в меню -->
+            <li><button class="complaint-button" onclick="showComplaint()">Пожаловаться</button></li>
         </ul>
     </nav>
 
     <main>
         <section class="main-content">
             <article class="card">
-                <h2>Заголовок статьи</h2>
-                <p>Текст статьи...</p>
+                <h2>Наши работы</h2>
+                <img src="https://picsum.photos/800/150" 
+                     alt="Пример работы 1" 
+                     class="article-image">
+                <p>Текст статьи с описанием наших достижений...</p>
                 <button>Подробнее</button>
             </article>
 
             <article class="card">
-                <h2>Еще одна статья</h2>
-                <p>Еще какой-то текст...</p>
+                <h2>Новости</h2>
+                <img src="https://picsum.photos/801/150" 
+                     alt="Новостное изображение" 
+                     class="article-image">
+                <p>Последние обновления и события...</p>
                 <button>Подробнее</button>
             </article>
         </section>
 
         <aside>
-            <h3>Сайдбар</h3>
-            <p>Дополнительная информация</p>
+            <h3>Спецпредложение</h3>
+            <img src="https://picsum.photos/300/200" 
+                 alt="Специальное предложение" 
+                 class="article-image">
             <ul>
-                <li>Пункт 1</li>
-                <li>Пункт 2</li>
-                <li>Пункт 3</li>
+                <li>Акция 1</li>
+                <li>Акция 2</li>
+                <li>Акция 3</li>
             </ul>
         </aside>
     </main>
 
     <footer>
+        <button class="complaint-button" onclick="showComplaint()">Пожаловаться</button>
         <p>&copy; 2025 сайт хуечки. Все права защищены.</p>
     </footer>
+
+    <script>
+        // Функция для обработки жалобы
+        function showComplaint() {
+            alert("Привет! Спасибо за ваше сообщение.");
+            // Здесь можно добавить дополнительную логику обработки жалобы
+        }
+    </script>
 </body>
 </html>
